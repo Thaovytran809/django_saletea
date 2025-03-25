@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="nh_container">
+    <h2 class="text-center nh-title" style="margin: 0; padding: 0 0 10px 0;">Danh sách Nhóm Hàng</h2>
+
+
+    <div class="row">
+        {% for nh in nhom_hang %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow rounded" style="overflow: hidden;">
+                {% if nh.image %}
+                    <img src="{{ nh.image.url }}" class="card-img-top" style="height: 300px; width: 100%; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                {% else %}
+                    <img src="/static/default.jpg" class="card-img-top" style="height: 300px; width: 100%; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                {% endif %}
+                <div class="card-body text-center" style="padding: 10px;">
+                    <h6 class="card-title" style="font-size: 14px; font-weight: bold;">{{ nh.Ten_NH }}</h6>
+                    <a href="{% url 'list_MH' nh.id %}" class="btn btn-outline-dark btn-sm" style="border-radius: 10px;">Xem Mặt Hàng</a>
+                    <a href="{% url 'update_NH' nh.id %}" class="btn btn-outline-warning btn-sm" style="border-radius: 10px; margin-left: 5px;">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow rounded d-flex justify-content-center align-items-center" style="height: 200px;">
+                <a href="{% url 'add_NH' %}" class="btn btn-outline-primary" style="font-size: 3rem;">+</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

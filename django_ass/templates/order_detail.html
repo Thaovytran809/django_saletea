@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Chi Tiết Đơn Hàng: {{ bill.Bill_id }}</h2>
+
+<div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+    <h3>Khách Hàng</h3>
+    <p><strong>Tên:</strong> {{ bill.Ma_KH.Ten_KH }}</p>
+    <p><strong>Phân Khúc:</strong> {{ bill.Ma_KH.Ma_PKKH.Mo_Ta }}</p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+    <h3>Chi Tiết Sản Phẩm</h3>
+    {% for line in bill_lines %}
+        <div style="border: 1px solid gray; padding: 5px; margin: 5px 0;">
+            <p><strong>Tên SP:</strong> {{ line.Ma_MH.Ten_MH }}</p>
+            <p><strong>Số lượng:</strong> {{ line.SL }}</p>
+            <p><strong>Thành Tiền:</strong> {{ line.total_price|floatformat:2 }}</p>
+        </div>
+    {% endfor %}
+</div>
+<h3>Tổng Tiền: {{ total_amount|floatformat:2 }}</h3>
+<a href="{% url 'order_list' %}">Quay Lại</a>
+{% endblock %}

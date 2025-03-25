@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3 text-center">Danh sách đơn hàng</h2>
+<div class="container mt-4">
+
+    <!-- Nút Add Order -->
+    <div class="d-flex justify-content-start mb-3">
+        <a href="{% url 'add_order' %}" class="btn btn-outline-dark custom-btn">Add Order</a>
+    </div>
+
+    <!-- Bảng đơn hàng -->
+        <table class="table">
+            <thead>
+                <tr style="border-bottom: 2px solid black;">
+                    <th>Tên Khách Hàng</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>Thành Tiền</th>
+                    <th>Chi Tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in bill_lines %}
+                <tr>
+                    <td>{{ line.Bill_id.Ma_KH.Ten_KH }}</td>
+                    <td>{{ line.Ma_MH.Ten_MH }}</td>
+                    <td>{{ line.SL }}</td>
+                    <td>{{ line.total_price|floatformat:2 }}</td>
+                    <td>
+                        <a href="{% url 'order_detail' line.Bill_id.Bill_id %}" style="
+                            display: inline-block;
+                            padding: 5px 10px;
+                            text-decoration: none;
+                            color: black;
+                            border: 1px solid black;
+                            border-radius: 5px;
+                        ">Xem</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- Phân trang -->
+    <div style="margin-top: 20px; text-align: center;">
+        {% if bill_lines.has_previous %}
+            <a href="?page=1" style="border: 1px solid black; padding: 5px 10px; text-decoration: none; color: black; border-radius: 5px;">Đầu</a>
+            <a href="?page={{ bill_lines.previous_page_number }}" style="border: 1px solid black; padding: 5px 10px; text-decoration: none; color: black; border-radius: 5px;">Trước</a>
+        {% endif %}
+
+        <span style="margin: 0 10px;">Trang {{ bill_lines.number }} / {{ bill_lines.paginator.num_pages }}</span>
+
+        {% if bill_lines.has_next %}
+            <a href="?page={{ bill_lines.next_page_number }}" style="border: 1px solid black; padding: 5px 10px; text-decoration: none; color: black; border-radius: 5px;">Tiếp</a>
+            <a href="?page={{ bill_lines.paginator.num_pages }}" style="border: 1px solid black; padding: 5px 10px; text-decoration: none; color: black; border-radius: 5px;">Cuối</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

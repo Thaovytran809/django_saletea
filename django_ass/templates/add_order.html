@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4 text-center">Thêm Đơn Hàng</h2>
+<div class="container mt-4">
+    <div class="card shadow-sm p-4">
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Tên khách hàng:</label>
+                <input type="text" name="ten_kh" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phân khúc:</label>
+                <select name="ma_pkkh" class="form-select">
+                    {% for pkkh in pkkh_list %}
+                        <option value="{{ pkkh.Ma_PKKH }}">{{ pkkh.Mo_Ta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Chọn nhóm hàng:</label>
+                <select id="nhom_hang" class="form-select">
+                    {% for nh in nhom_hangs %}
+                        <option value="{{ nh.Ma_NH }}">{{ nh.Ten_NH }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Chọn sản phẩm:</label>
+                <select id="san_pham" name="ma_mh[]" class="form-select" required>
+                    <option value="" data-price="0">Chọn sản phẩm...</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Số lượng:</label>
+                <input type="number" id="so_luong" name="sl[]" class="form-control" min="1" required value="1">
+            </div>
+
+            <!-- Hiển thị tổng tiền -->
+            <div class="mb-3">
+                <label class="form-label">Tổng tiền:</label>
+                <input type="text" id="tong_tien" class="form-control" readonly value="0">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">Thêm đơn hàng</button>
+                <a href="{% url 'order_list' %}" class="back-link">Quay Lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('nhom_hang').addEventListener('change', function() {
+        let nh_id = this.value; 
+    
+        fetch(`/get-products/?ma_nh=` + encodeURIComponent(nh_id))
+        .then(response => response.json())
+        .then(data => {
+            let productSelect = document.getElementById('san_pham');
+            productSelect.innerHTML = '<option value="" data-price="0">Chọn sản phẩm...</option>';
+
+            if (data.length === 0) {  
+                productSelect.innerHTML += `<option value="" data-price="0">Không có sản phẩm</option>`;
+            } else {
+                data.forEach(product => {
+                    productSelect.innerHTML += `<option value="${product.Ma_MH}" data-price="${product.Don_Gia}">${product.Ten_MH} - ${product.Don_Gia}</option>`;
+                });
+            }
+            updateTotal();  // Cập nhật tổng tiền
+        })
+        .catch(error => console.error('Lỗi khi tải sản phẩm:', error));
+    });
+
+    // Cập nhật tổng tiền khi chọn sản phẩm hoặc thay đổi số lượng
+    document.getElementById('san_pham').addEventListener('change', updateTotal);
+    document.getElementById('so_luong').addEventListener('input', updateTotal);
+
+    function updateTotal() {
+        let selectedProduct = document.getElementById('san_pham').selectedOptions[0];
+        let price = parseFloat(selectedProduct.getAttribute('data-price')) || 0;
+        let quantity = parseInt(document.getElementById('so_luong').value) || 1;
+        document.getElementById('tong_tien').value = (price * quantity).toFixed(2);
+    }
+</script>
+
+{% endblock %}

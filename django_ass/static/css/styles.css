@@ -1,0 +1,217 @@
+/* Định dạng phông chữ và toàn trang */
+body {
+    
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+}
+
+/* Navbar */
+.navbar-nav {
+    display: flex;
+    justify-content: center; /* Căn giữa các nút */
+    width: 100%;
+}
+
+/* Các liên kết trong navbar */
+.navbar-nav .nav-link {
+    color: #194a40 !important; /* Màu mặc định */
+    font-size: 13px;
+    transition: color 0.3s ease;
+    padding: 8px 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: "Teapoz", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    
+}
+
+/* Khi rê chuột vào */
+.navbar-nav .nav-link:hover {
+    color: #8fbe54 !important;
+    text-decoration: none;
+}
+
+/* Mặc định cho "Trang chủ" */
+.navbar-nav .nav-link.active {
+    color: #8fbe54 !important;
+    font-weight: bold;
+}
+
+/* Nút Đăng xuất */
+.navbar-nav .btn-danger {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Định dạng container chính */
+.container {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.navbar-brand img {
+    height: 50px;
+    margin-right: 0px;
+    display: block;
+}
+.carousel-item {
+    min-height: 100vh; /* 100% chiều cao màn hình */
+    background-size: contain !important; /* Ảnh không bị cắt */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.containerchart {
+    top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .container9 {
+    
+    overflow-x: auto !important; /* Bắt buộc cuộn ngang */
+    
+    position: relative; /* Giữ nguyên bố cục */
+  }
+  .control-panel {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 5px;
+      justify-content: center;
+  }
+  
+  button {
+      padding: 5px 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid black;
+      background-color: lightgray;
+  }
+  button.active {
+    background-color: steelblue !important;
+    color: white !important;
+    font-weight: bold !important;
+    border: 2px solid #194a40 !important;
+}
+.custom-btn {
+    background-color: transparent; /* Nền trong suốt */
+    border-radius: 8px; /* Bo góc */
+    padding: 10px 20px; /* Kích thước nút */
+    margin-bottom: 20px; /* Khoảng cách giữa nút và bảng */
+}
+/* Căn chỉnh form */
+.custom-form {
+    max-width: 500px; /* Giới hạn chiều rộng form */
+    margin: 0 auto; /* Căn giữa form */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+/* Nút "Quay lại" (chỉ là chữ, màu xám, bên trái) */
+.back-link {
+    color: gray;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: darkgray;
+}
+
+/* Nút "Thêm" (chỉ là chữ, màu xanh lá, bên phải) */
+.submit-link {
+    color: green;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submit-link:hover {
+    color: darkgreen;
+}
+
+/* Giới hạn chiều rộng của dropdown */
+.form-group select {
+    max-width: 100%; /* Đảm bảo nó không tràn khỏi form */
+    width: 100%; /* Tự động fit với div cha */
+    white-space: normal; /* Cho phép tự xuống dòng */
+    word-wrap: break-word; /* Ngắt từ nếu quá dài */
+    overflow-wrap: break-word; /* Cắt dòng nếu cần */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Giới hạn option bên trong dropdown */
+.form-group select option {
+    max-width: 200px; /* Hạn chế chiều rộng option */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị "..." nếu quá dài */
+    white-space: nowrap;
+}
+
+/* Giới hạn div chứa dropdown */
+.form-group div {
+    max-width: 100%; /* Đảm bảo không bị tràn */
+}
+
+/* Giới hạn dropdown trong card */
+.dropdown-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* Giới hạn chiều rộng */
+}
+
+/* Điều chỉnh select để phù hợp với div cha */
+.dropdown-container select {
+    width: 100%;
+    max-width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Giới hạn độ rộng của dropdown */
+.dropdown-wrapper select {
+    max-width: 100%; /* Đảm bảo nó nằm gọn trong form */
+    width: 100%;
+}
+
+/* Điều chỉnh box chứa danh sách chọn */
+.dropdown-wrapper select {
+    direction: rtl; /* Đảo hướng hiển thị để menu dropdown không tràn ra ngoài */
+    text-align: left; /* Căn chỉnh văn bản trong select */
+}
+
+/* Dịch dropdown sang trái nếu nó bị tràn ra ngoài */
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-wrapper select {
+    position: absolute;
+    left: 0;
+    right: auto;
+}
+
+.card {
+    border-radius: 20px !important;  /* Bo góc nhiều hơn */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    overflow: hidden; /* Đảm bảo ảnh không tràn */
+}
+.card-img-top {
+    border-top-left-radius: 20px; 
+    border-top-right-radius: 20px; 
+}
+.nh-container {
+    
+    margin: 0 auto;
+    padding: 0 !important; /* Xóa padding */
+}
+
+
+

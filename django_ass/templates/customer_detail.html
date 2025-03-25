@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Thông tin khách hàng</h2>
+
+<div class="container d-flex justify-content-center">
+    <div class="row w-75">
+        <!-- Thông tin cá nhân -->
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <div class="card-body">
+                    <h4 class="text-center">Thông tin cá nhân</h4>
+                    <div style="text-align: left;">
+                        <p class="mb-2"><strong>Mã KH:</strong> {{ customer.Ma_KH }}</p>
+                        <p class="mb-2"><strong>Tên KH:</strong> {{ customer.Ten_KH }}</p>
+                        <p class="mb-0"><strong>Phân khúc:</strong> {{ pkkh_mo_ta }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Thống kê mua hàng -->
+        <div class="col-md-6">
+            <div class="card shadow p-3 h-100">
+                <div class="card-body">
+                    <h4 class="text-center">Thống kê mua hàng</h4>
+                    <div style="text-align: left;">
+                        <p class="mb-2"><strong>Số lần mua:</strong> {{ total_orders }}</p>
+                        <p class="mb-0"><strong>Tổng chi tiêu:</strong> {{ total_spent|floatformat:0 }} VNĐ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<h3>Lịch sử mua hàng</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Bill</th>
+            <th>Mặt hàng</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for line in bill_lines %}
+        <tr>
+            <td>{{ line.SL }}</td>
+            <td>{{ line.Ma_MH.Ten_MH }}</td>
+            <td>{{ line.Ma_MH.Don_Gia|floatformat:0 }}</td>
+            <td>{{ line.total_price|floatformat:0 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'list_customers' %}" class="text-secondary text-decoration-none fs-4 d-block pb-3"><i class="bi bi-skip-backward-btn"></i> Quay lại</a>
+
+
+{% endblock %}

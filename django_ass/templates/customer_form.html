@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Thêm Khách hàng</h2>
+<form method="POST" class="custom-form">
+    {% csrf_token %}
+
+    <div class="card shadow p-3">
+        <div class="card-body">
+            <!-- Tên KH -->
+            <div class="form-group">
+                <label for="{{ form.Ten_KH.id_for_label }}"><strong>Tên KH:</strong></label>
+                {{ form.Ten_KH }}
+            </div>
+
+            <!-- Phân khúc KH (Dropdown) -->
+            <div class="form-group">
+                <label for="{{ form.Ma_PKKH.id_for_label }}"><strong>Phân khúc KH:</strong></label>
+                <div class="dropdown-container">  
+                    {{ form.Ma_PKKH }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <a href="{% url 'list_customers' %}" class="back-link">Quay lại</a>
+        <span class="submit-link" onclick="document.querySelector('.custom-form').submit();">Thêm</span>
+    </div>
+</form>
+{% endblock %}

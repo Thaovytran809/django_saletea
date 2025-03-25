@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+    <!-- Thanh điều khiển -->
+    <div class="control-panel">
+        <button id="btn-q1">Q1</button>
+        <button id="btn-q2">Q2</button>
+        <button id="btn-q3">Q3</button>
+        <button id="btn-q4">Q4</button>
+        <button id="btn-q5">Q5</button>
+        <button id="btn-q6">Q6</button>
+        <button id="btn-q7">Q7</button>
+        <button id="btn-q8">Q8</button>
+        <button id="btn-q9">Q9</button>
+        <button id="btn-q10">Q10</button>
+        <button id="btn-q11">Q11</button>
+        <button id="btn-q12">Q12</button>
+    </div>
+    
+    <div class="containerchart">
+    <svg id="q1"></svg>
+    <!-- Div chứa tooltip -->
+     <div id="tooltip1" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+    <svg id="q2"></svg>
+     <div id="tooltip2" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q3"></svg>
+         <div id="tooltip3" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q4"></svg>
+         <div id="tooltip4" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q5"></svg>
+         <div id="tooltip5" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q6"></svg>
+         <div id="tooltip6" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q7"></svg>
+         <div id="tooltip7" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q8"></svg>
+         <div id="tooltip8" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="container9">
+        <svg id="q9"></svg>
+         <div id="tooltip9" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="container9">
+        <svg id="q10"></svg>
+         <div id="tooltip10" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q11"></svg>
+         <div id="tooltip11" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <div class="containerchart">
+        <svg id="q12"></svg>
+         <div id="tooltip12" style="position: absolute; opacity: 0; background: white; padding: 5px; border: 1px solid black; pointer-events: none;"></div>
+    </div>
+    <script>
+        const data = {{ data|safe }};
+    </script>
+    <!-- Nhúng file js -->
+     <script src="{% static 'js/q1.js' %}"></script> 
+     <script src="{% static 'js/q2.js' %}"></script>
+     <script src="{% static 'js/q3.js' %}"></script>
+     <script src="{% static 'js/q4.js' %}"></script>
+     <script src="{% static 'js/q5.js' %}"></script>
+     <script src="{% static 'js/q6.js' %}"></script>
+     <script src="{% static 'js/q7.js' %}"></script>
+     <script src="{% static 'js/q8.js' %}"></script>
+     <script src="{% static 'js/q9.js' %}"></script>
+     <script src="{% static 'js/q10.js' %}"></script>
+     <script src="{% static 'js/q11.js' %}"></script>
+     <script src="{% static 'js/q12.js' %}"></script>
+
+    <!-- Script điều khiển hiển thị -->
+    <script>
+        // Lấy danh sách các nút bấm từ btn-q1 đến btn-q12
+        const buttons = document.querySelectorAll("[id^=btn-q]");
+        // Lấy danh sách các biểu đồ từ q1 đến q12
+        const charts = document.querySelectorAll("svg[id^=q]");
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", function () {
+                // Ẩn tất cả các biểu đồ
+                charts.forEach((chart) => {
+                    chart.style.display = "none";
+                });
+
+                buttons.forEach((btn) => btn.classList.remove("active"))
+
+                // Hiển thị biểu đồ tương ứng với nút được nhấn
+                const chartId = button.id.replace("btn-q", "q");
+                document.getElementById(chartId).style.display = "block";
+
+                // Đánh dấu nút đang được chọn (đổi màu)
+                button.classList.add("active")
+            });
+        });
+
+        // Mặc định hiển thị Q1 và ẩn các biểu đồ khác
+        charts.forEach((chart, index) => {
+            chart.style.display = index === 0 ? "block" : "none";
+        // Mặc định chọn nút đầu tiên
+        buttons[0].classList.add("active")
+        });
+    </script>
+
+{% endblock %}

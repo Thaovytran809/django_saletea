@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">Danh sách Mặt Hàng - {{ nhom_hang.Ten_NH }}</h2>
+    <div class="row">
+        {% for mh in mat_hang %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow rounded" style="overflow: hidden;">
+                {% if mh.image %}
+                    <img src="{{ mh.image.url }}" class="card-img-top" style="height: 300px; width: 100%; object-fit: cover;">
+                {% else %}
+                    <img src="/static/default.jpg" class="card-img-top" style="height: 300px; width: 100%; object-fit: cover;">
+                {% endif %}
+                <div class="card-body text-center" style="padding: 10px;">
+                    <h6 class="card-title" style="font-size: 14px; font-weight: bold;">{{ mh.Ten_MH }}</h6>
+                    <p class="card-text" style="font-size: 12px; margin-bottom: 8px;">Giá: {{ mh.Don_Gia }} VND</p>
+                    <a href="{% url 'update_MH' mh.id %}" class="btn btn-outline-dark btn-sm" style="border-radius: 10px;">Cập nhật</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow rounded d-flex justify-content-center align-items-center" style="height: 300px;">
+                <a href="{% url 'add_MH' nhom_hang.id %}" class="btn btn-outline-primary" style="font-size: 3rem;">+</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
